@@ -1,0 +1,37 @@
+// базовые подключения
+@import "base/reset";
+@import "abstracts/vars";
+@import "abstracts/mixins";
+@import "settings";
+@import "base/base";
+@import "base/content";
+
+@import "base/headings";
+
+
+// подключения компонентов страницы
+@import "layout/header";
+@import "./components/buttons";
+@import "./components/skills";
+@import "./components/portfolio";
+@import "./components/about";
+@import "layout/footer";
+@import "./components/blog";
+@import "./components/post";
+@import "./components/form";
+@import "./components/contacts";
+@import "layout/pagination";
+@import "pages/404";
+@import "components/work";
+
+
+
+@import "layout/nav";
+@import "./components/welcome";
+
+
+@import "./responsive/768";
+@import "./responsive/576";
+
+
+

@@ -1,0 +1,24 @@
+---
+// Usage: <GreetingHeadline greeting="Howdy" name="Partner" />
+import type { HTMLAttributes } from "astro/types";
+import HeaderLink from "../HeaderLink.astro";
+
+
+
+interface Props extends HTMLAttributes<"a"> {
+    variant: "primary" | "secondary";
+}
+
+const { variant, ...props } = Astro.props;
+---
+<HeaderLink
+        class:list={[
+            "button",
+            { primary: variant === "primary" },
+            { secondary: variant === "secondary" },
+            Astro.props.class,
+        ]}
+        {...props}
+>
+    <slot />
+</HeaderLink>
