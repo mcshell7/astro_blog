@@ -6,7 +6,8 @@
   z-index: 13;
   transition: 0.5s ease-in-out;
   background-color: var(--body-bg);
-  box-shadow: 0 -6px 10px 5px rgba(0,0,0,0.25);
+  //box-shadow: 0 -6px 10px 5px rgba(0,0,0,0.25);
+  box-shadow: 0 -6px 10px 5px rgba(20, 77, 70, 0.25);
   padding: 5px 0;
   &__inner{
     display: flex;

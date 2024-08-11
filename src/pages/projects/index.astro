@@ -1,0 +1,51 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import {SITE_TITLE, SITE_DESCRIPTION} from '../../consts';
+import {getCollection} from 'astro:content';
+import FormattedDate from '../../components/FormattedDate.astro';
+
+const posts = (await getCollection('projects')).sort(
+    (a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf()
+);
+---
+
+<!doctype html>
+<html lang="en">
+<head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION}/>
+</head>
+<body>
+<Header/>
+<main class="main">
+    <section class="project">
+
+        <div class="container">
+            <h1>Projects</h1>
+            <ul class="project__list">
+                {
+                    posts.map((post) => (
+                            <li class="project__item">
+                                <a href={`/projects/${post.slug}/`} class="project__item-link">
+                                    <img width={720} height={360} src={post.data.heroImage} alt=""
+                                         class="project__item-img"/>
+                                    <div class="project__item-content">
+                                        <h4 class="project__item-title title-4">{post.data.title}</h4>
+                                        <p class="project__item-desc">
+                                            {post.data.description}
+                                        </p>
+
+                                    </div>
+                                </a>
+                            </li>
+                    ))
+                }
+            </ul>
+        </div>
+
+    </section>
+</main>
+<Footer/>
+</body>
+</html>

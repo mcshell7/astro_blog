@@ -47,7 +47,7 @@
   }
 
   &__item {
-    @include flex();
+    display: flex;
     padding: 30px 0;
   }
   .work__item:not(:last-child){

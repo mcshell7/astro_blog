@@ -1,206 +1,217 @@
 ---
-title: 'How To Make Reusable Components with Astro'
-description: 'To make a component in Astro, start by creating a new file - _Button.astro_. This button will be an anchor tag used for navigation.'
+title: 'CSS Grid System: A Comprehensive Guide and Cheat Sheet'
+description: 'A Comprehensive Guide and Cheat Sheet'
 pubDate: 'Jul 24 2024'
-heroImage: '/images/astro.webp'
+heroImage: '/images/grid.jpg'
 ---
 
- <p><strong>Heads up!</strong> I will add in Typescript along the way, because it’s nice to have the auto-complete features for reusable components. The code will work without the Typescript though.</p>
-<h2 id="table-of-content">Table of content</h2>
-<ul>
-<li><a href="#the-foundation">The Foundation</a></li>
-<li><a href="#slots">Slots</a></li>
-<li><a href="#styling">Styling</a></li>
-<li><a href="#using-tailwind">Tailwind</a></li>
-<li><a href="#wrapping-up">Wrapping Up</a></li>
-</ul>
-<h2 id="the-foundation">The Foundation</h2>
-<p>To make a component in Astro, start by creating a new file - <em>Button.astro</em>.
-This button will be an anchor tag used for navigation.</p>
-<pre class="highlight astro-code github-dark" style=" overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">&lt;</span><span style="color:#85E89D">a</span><span style="color:#B392F0"> href</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"/about"</span><span style="color:#E1E4E8">&gt;About Me&lt;/</span><span style="color:#85E89D">a</span><span style="color:#E1E4E8">&gt;</span></span></code></pre>
-<p>Now you can import this component in you <em>index.astro</em> page.</p>
-<pre class="highlight astro-code github-dark" style=" overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color:#6A737D">---</span></span>
-<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> Button </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> "../components/Button.astro"</span><span style="color:#E1E4E8">;</span></span>
-<span class="line"><span style="color:#6A737D">---</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#E1E4E8">&lt;</span><span style="color:#85E89D">html</span><span style="color:#E1E4E8">&gt;</span></span>
-<span class="line"><span style="color:#E1E4E8">  &lt;</span><span style="color:#85E89D">h1</span><span style="color:#E1E4E8">&gt;Welcome to my website!&lt;/</span><span style="color:#85E89D">h1</span><span style="color:#E1E4E8">&gt;</span></span>
-<span class="line"><span style="color:#E1E4E8">  &lt;</span><span style="color:#79B8FF">Button</span><span style="color:#E1E4E8"> /&gt;</span></span>
-<span class="line"><span style="color:#E1E4E8">&lt;/</span><span style="color:#85E89D">html</span><span style="color:#E1E4E8">&gt;</span></span></code></pre>
-<h2 id="slots">Slots</h2>
-<p>This button is not very reusable right, so let’s make it possible to customize the link text. One way to do that is by using slots. A <a href="https://docs.astro.build/en/core-concepts/astro-components/#slots"><code>&lt;slot /&gt;</code></a> is a placeholder for the components children, which can be plain text, a single element, several elements or nested elements.</p>
-<pre class="highlight astro-code github-dark" style=" overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">&lt;</span><span style="color:#85E89D">a</span><span style="color:#B392F0"> href</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"/about"</span><span style="color:#E1E4E8">&gt;</span></span>
-<span class="line"><span style="color:#E1E4E8">  &lt;</span><span style="color:#85E89D">slot</span><span style="color:#E1E4E8"> /&gt;</span></span>
-<span class="line"><span style="color:#E1E4E8">&lt;/</span><span style="color:#85E89D">a</span><span style="color:#E1E4E8">&gt;</span></span></code></pre>
-<p>Now let’s make the <code>href</code> a passable prop:</p>
-<pre class="highlight astro-code github-dark" style=" overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color:#6A737D">---</span></span>
-<span class="line"><span style="color:#F97583">const</span><span style="color:#E1E4E8"> { </span><span style="color:#79B8FF">href</span><span style="color:#E1E4E8"> } </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> Astro.props;</span></span>
-<span class="line"><span style="color:#6A737D">---</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#E1E4E8">&lt;</span><span style="color:#85E89D">a</span><span style="color:#B392F0"> href</span><span style="color:#E1E4E8">={href}&gt;</span></span>
-<span class="line"><span style="color:#E1E4E8">  &lt;</span><span style="color:#85E89D">slot</span><span style="color:#E1E4E8"> /&gt;</span></span>
-<span class="line"><span style="color:#E1E4E8">&lt;/</span><span style="color:#85E89D">a</span><span style="color:#E1E4E8">&gt;</span></span></code></pre>
-<p>Meanwhile, we must remember to add the <code>href</code> on our homepage.</p>
-<pre class="highlight astro-code github-dark" style=" overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color:#6A737D">---</span></span>
-<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> Button </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> "../components/Button.astro"</span><span style="color:#E1E4E8">;</span></span>
-<span class="line"><span style="color:#6A737D">---</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#E1E4E8">&lt;</span><span style="color:#85E89D">html</span><span style="color:#E1E4E8">&gt;</span></span>
-<span class="line"><span style="color:#E1E4E8">  &lt;</span><span style="color:#85E89D">h1</span><span style="color:#E1E4E8">&gt;Welcome to my website!&lt;/</span><span style="color:#85E89D">h1</span><span style="color:#E1E4E8">&gt;</span></span>
-<span class="line"><span style="color:#E1E4E8">  &lt;</span><span style="color:#79B8FF">Button</span><span style="color:#B392F0"> href</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"/about"</span><span style="color:#E1E4E8">&gt;About Me&lt;/</span><span style="color:#79B8FF">Button</span><span style="color:#E1E4E8">&gt;</span></span>
-<span class="line"><span style="color:#E1E4E8">&lt;/</span><span style="color:#85E89D">html</span><span style="color:#E1E4E8">&gt;</span></span></code></pre>
-<h2 id="inferred-attributes">Inferred Attributes</h2>
-<p>Now the component looks and feels just like an anchor tag. The only problem is, that HTML elements have many different attributes, and it would be time consuming to manually type them all.</p>
-<p>Instead we can import the attributes with Typescript, and extend the expected props with the standard attributes for a given HTML element. Note, that interface <code>Props</code> is implicitly set as the type interface for <code>Astro.props</code>.</p>
-<p>Now we can delete the <code>href</code> from our props, and spread all our remaining props as the attributes for our anchor tag.
-This way, we will have access to <code>href</code>, <code>target</code>, <code>rel</code>, and all the other attrubitutes, and auto-completion as if it was an anchor tag.</p>
-<pre class="highlight astro-code github-dark" style=" overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color:#6A737D">---</span></span>
-<span class="line"><span style="color:#F97583">import</span><span style="color:#F97583"> type</span><span style="color:#E1E4E8"> { HTMLAttributes } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> "astro/types"</span><span style="color:#E1E4E8">;</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">interface</span><span style="color:#B392F0"> Props</span><span style="color:#F97583"> extends</span><span style="color:#B392F0"> HTMLAttributes</span><span style="color:#E1E4E8">&lt;</span><span style="color:#9ECBFF">"a"</span><span style="color:#E1E4E8">&gt; {}</span></span>
-<span class="line"><span style="color:#F97583">const</span><span style="color:#E1E4E8"> { </span><span style="color:#F97583">...</span><span style="color:#79B8FF">props</span><span style="color:#E1E4E8"> } </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> Astro.props;</span></span>
-<span class="line"><span style="color:#6A737D">---</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#E1E4E8">&lt;</span><span style="color:#85E89D">a</span><span style="color:#E1E4E8"> {</span><span style="color:#F97583">...</span><span style="color:#E1E4E8">props}&gt;</span></span>
-<span class="line"><span style="color:#E1E4E8">  &lt;</span><span style="color:#85E89D">slot</span><span style="color:#E1E4E8"> /&gt;</span></span>
-<span class="line"><span style="color:#E1E4E8">&lt;/</span><span style="color:#85E89D">a</span><span style="color:#E1E4E8">&gt;</span></span></code></pre>
-<h2 id="styling">Styling</h2>
-<p>Now it’s time to add some basic styles to our button. In Astro you can scope your CSS styles with a <code>style</code> tag at the bottom.</p>
-<p>Here I have added a “button” class which will be added to all instances of the components, but I have also added a “red” class and a “blue” class. These classes are not assigned by default, but will be available, if they are set in the <code>class</code> prop, as I’m using <code>Astro.props.class</code> in the <a href="https://docs.astro.build/en/guides/styling/#combining-classes-with-classlist"><code>class:list</code></a>.</p>
-<pre class="highlight astro-code github-dark" style=" overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color:#6A737D">---</span></span>
-<span class="line"><span style="color:#F97583">import</span><span style="color:#F97583"> type</span><span style="color:#E1E4E8"> { HTMLAttributes } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> "astro/types"</span><span style="color:#E1E4E8">;</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">interface</span><span style="color:#B392F0"> Props</span><span style="color:#F97583"> extends</span><span style="color:#B392F0"> HTMLAttributes</span><span style="color:#E1E4E8">&lt;</span><span style="color:#9ECBFF">"a"</span><span style="color:#E1E4E8">&gt; {}</span></span>
-<span class="line"><span style="color:#F97583">const</span><span style="color:#E1E4E8"> { </span><span style="color:#F97583">...</span><span style="color:#79B8FF">props</span><span style="color:#E1E4E8"> } </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> Astro.props;</span></span>
-<span class="line"><span style="color:#6A737D">---</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#E1E4E8">&lt;</span><span style="color:#85E89D">a</span><span style="color:#B392F0"> class:list</span><span style="color:#E1E4E8">={[</span><span style="color:#9ECBFF">"button"</span><span style="color:#E1E4E8">, Astro.props.class]} {</span><span style="color:#F97583">...</span><span style="color:#E1E4E8">props}&gt;</span></span>
-<span class="line"><span style="color:#E1E4E8">  &lt;</span><span style="color:#85E89D">slot</span><span style="color:#E1E4E8"> /&gt;</span></span>
-<span class="line"><span style="color:#E1E4E8">&lt;/</span><span style="color:#85E89D">a</span><span style="color:#E1E4E8">&gt;</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#E1E4E8">&lt;</span><span style="color:#85E89D">style</span><span style="color:#E1E4E8">&gt;</span></span>
-<span class="line"><span style="color:#B392F0">  .button</span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#79B8FF">    padding</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">1</span><span style="color:#F97583">rem</span><span style="color:#E1E4E8">;</span></span>
-<span class="line"><span style="color:#79B8FF">    border</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">2</span><span style="color:#F97583">px</span><span style="color:#79B8FF"> solid</span><span style="color:#79B8FF"> black</span><span style="color:#E1E4E8">;</span></span>
-<span class="line"><span style="color:#E1E4E8">  }</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#B392F0">  .red</span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#79B8FF">    color</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">red</span><span style="color:#E1E4E8">;</span></span>
-<span class="line"><span style="color:#E1E4E8">  }</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#B392F0">  .blue</span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#79B8FF">    color</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">blue</span><span style="color:#E1E4E8">;</span></span>
-<span class="line"><span style="color:#E1E4E8">  }</span></span>
-<span class="line"><span style="color:#E1E4E8">&lt;/</span><span style="color:#85E89D">style</span><span style="color:#E1E4E8">&gt;</span></span></code></pre>
-<p>Now we can customize our component by adding CSS classes defined in the component.</p>
-<pre class="highlight astro-code github-dark" style=" overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color:#6A737D">---</span></span>
-<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> Button </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> "../components/Button.astro"</span><span style="color:#E1E4E8">;</span></span>
-<span class="line"><span style="color:#6A737D">---</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#E1E4E8">&lt;</span><span style="color:#85E89D">html</span><span style="color:#E1E4E8">&gt;</span></span>
-<span class="line"><span style="color:#E1E4E8">  &lt;</span><span style="color:#85E89D">h1</span><span style="color:#E1E4E8">&gt;Welcome to my website!&lt;/</span><span style="color:#85E89D">h1</span><span style="color:#E1E4E8">&gt;</span></span>
-<span class="line"><span style="color:#E1E4E8">  &lt;</span><span style="color:#79B8FF">Button</span><span style="color:#B392F0"> href</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"/"</span><span style="color:#E1E4E8">&gt;Home&lt;/</span><span style="color:#79B8FF">Button</span><span style="color:#E1E4E8">&gt;</span></span>
-<span class="line"><span style="color:#E1E4E8">  &lt;</span><span style="color:#79B8FF">Button</span><span style="color:#B392F0"> href</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"/about"</span><span style="color:#B392F0"> class</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"red"</span><span style="color:#E1E4E8">&gt;About Me&lt;/</span><span style="color:#79B8FF">Button</span><span style="color:#E1E4E8">&gt;</span></span>
-<span class="line"><span style="color:#E1E4E8">  &lt;</span><span style="color:#79B8FF">Button</span><span style="color:#B392F0"> href</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"/services"</span><span style="color:#B392F0"> class</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"blue"</span><span style="color:#E1E4E8">&gt;Services&lt;/</span><span style="color:#79B8FF">Button</span><span style="color:#E1E4E8">&gt;</span></span>
-<span class="line"><span style="color:#E1E4E8">&lt;/</span><span style="color:#85E89D">html</span><span style="color:#E1E4E8">&gt;</span></span></code></pre>
-<p>While having these instances styled based on CSS classes are great for minor style changes, but for more varied styles, it’s easier to make variants, then make minor adjustments with classes.</p>
-<p>I have made two variants: “primary” and “secondary”, and <code>variant</code> as a prop. With these presets, we can assign complex styling as the base styling, and still be able to make minor changes with other classes.</p>
-<pre class="highlight astro-code github-dark" style=" overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color:#6A737D">---</span></span>
-<span class="line"><span style="color:#F97583">import</span><span style="color:#F97583"> type</span><span style="color:#E1E4E8"> { HTMLAttributes } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> "astro/types"</span><span style="color:#E1E4E8">;</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">interface</span><span style="color:#B392F0"> Props</span><span style="color:#F97583"> extends</span><span style="color:#B392F0"> HTMLAttributes</span><span style="color:#E1E4E8">&lt;</span><span style="color:#9ECBFF">"a"</span><span style="color:#E1E4E8">&gt; {</span></span>
-<span class="line"><span style="color:#FFAB70">  variant</span><span style="color:#F97583">:</span><span style="color:#9ECBFF"> "primary"</span><span style="color:#F97583"> |</span><span style="color:#9ECBFF"> "secondary"</span><span style="color:#E1E4E8">;</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">const</span><span style="color:#E1E4E8"> { </span><span style="color:#79B8FF">variant</span><span style="color:#E1E4E8">, </span><span style="color:#F97583">...</span><span style="color:#79B8FF">props</span><span style="color:#E1E4E8"> } </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> Astro.props;</span></span>
-<span class="line"><span style="color:#6A737D">---</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#E1E4E8">&lt;</span><span style="color:#85E89D">a</span></span>
-<span class="line"><span style="color:#B392F0">  class:list</span><span style="color:#E1E4E8">={[</span></span>
-<span class="line"><span style="color:#9ECBFF">    "button"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#E1E4E8">    { primary: variant </span><span style="color:#F97583">===</span><span style="color:#9ECBFF"> "primary"</span><span style="color:#E1E4E8"> },</span></span>
-<span class="line"><span style="color:#E1E4E8">    { secondary: variant </span><span style="color:#F97583">===</span><span style="color:#9ECBFF"> "secondary"</span><span style="color:#E1E4E8"> },</span></span>
-<span class="line"><span style="color:#E1E4E8">    Astro.props.class,</span></span>
-<span class="line"><span style="color:#E1E4E8">  ]}</span></span>
-<span class="line"><span style="color:#E1E4E8">  {</span><span style="color:#F97583">...</span><span style="color:#E1E4E8">props}</span></span>
-<span class="line"><span style="color:#E1E4E8">&gt;</span></span>
-<span class="line"><span style="color:#E1E4E8">  &lt;</span><span style="color:#85E89D">slot</span><span style="color:#E1E4E8"> /&gt;</span></span>
-<span class="line"><span style="color:#E1E4E8">&lt;/</span><span style="color:#85E89D">a</span><span style="color:#E1E4E8">&gt;</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#E1E4E8">&lt;</span><span style="color:#85E89D">style</span><span style="color:#E1E4E8">&gt;</span></span>
-<span class="line"><span style="color:#B392F0">  .button</span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#79B8FF">    padding</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">1</span><span style="color:#F97583">rem</span><span style="color:#E1E4E8">;</span></span>
-<span class="line"><span style="color:#79B8FF">    border</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">2</span><span style="color:#F97583">px</span><span style="color:#79B8FF"> solid</span><span style="color:#79B8FF"> black</span><span style="color:#E1E4E8">;</span></span>
-<span class="line"><span style="color:#E1E4E8">  }</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#B392F0">  .primary</span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#79B8FF">    background-color</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">black</span><span style="color:#E1E4E8">;</span></span>
-<span class="line"><span style="color:#79B8FF">    color</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">white</span><span style="color:#E1E4E8">;</span></span>
-<span class="line"><span style="color:#79B8FF">    border-radius</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">50</span><span style="color:#F97583">%</span><span style="color:#E1E4E8">;</span></span>
-<span class="line"><span style="color:#E1E4E8">  }</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#B392F0">  .secondary</span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#79B8FF">    color</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">black</span><span style="color:#E1E4E8">;</span></span>
-<span class="line"><span style="color:#79B8FF">    padding</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">2</span><span style="color:#F97583">rem</span><span style="color:#E1E4E8">;</span></span>
-<span class="line"><span style="color:#E1E4E8">  }</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#B392F0">  .red</span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#79B8FF">    color</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">red</span><span style="color:#E1E4E8">;</span></span>
-<span class="line"><span style="color:#E1E4E8">  }</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#B392F0">  .blue</span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#79B8FF">    color</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">blue</span><span style="color:#E1E4E8">;</span></span>
-<span class="line"><span style="color:#E1E4E8">  }</span></span>
-<span class="line"><span style="color:#E1E4E8">&lt;/</span><span style="color:#85E89D">style</span><span style="color:#E1E4E8">&gt;</span></span></code></pre>
-<p>The <em>index.astro</em> could look something like this:</p>
-<pre class="highlight astro-code github-dark" style=" overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color:#6A737D">---</span></span>
-<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> Button </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> "../components/Button.astro"</span><span style="color:#E1E4E8">;</span></span>
-<span class="line"><span style="color:#6A737D">---</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#E1E4E8">&lt;</span><span style="color:#85E89D">html</span><span style="color:#E1E4E8">&gt;</span></span>
-<span class="line"><span style="color:#E1E4E8">  &lt;</span><span style="color:#85E89D">h1</span><span style="color:#E1E4E8">&gt;Welcome to my website!&lt;/</span><span style="color:#85E89D">h1</span><span style="color:#E1E4E8">&gt;</span></span>
-<span class="line"><span style="color:#E1E4E8">  &lt;</span><span style="color:#79B8FF">Button</span><span style="color:#B392F0"> href</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"/"</span><span style="color:#B392F0"> variant</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"primary"</span><span style="color:#E1E4E8">&gt;Home&lt;/</span><span style="color:#79B8FF">Button</span><span style="color:#E1E4E8">&gt;</span></span>
-<span class="line"><span style="color:#E1E4E8">  &lt;</span><span style="color:#79B8FF">Button</span><span style="color:#B392F0"> href</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"/about"</span><span style="color:#B392F0"> variant</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"secondary"</span><span style="color:#E1E4E8">&gt;About Me&lt;/</span><span style="color:#79B8FF">Button</span><span style="color:#E1E4E8">&gt;</span></span>
-<span class="line"><span style="color:#E1E4E8">  &lt;</span><span style="color:#79B8FF">Button</span><span style="color:#B392F0"> href</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"/services"</span><span style="color:#B392F0"> variant</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"secondary"</span><span style="color:#B392F0"> class</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"blue"</span><span style="color:#E1E4E8">&gt;Services&lt;/</span><span style="color:#79B8FF">Button</span><span style="color:#E1E4E8">&gt;</span></span>
-<span class="line"><span style="color:#E1E4E8">&lt;/</span><span style="color:#85E89D">html</span><span style="color:#E1E4E8">&gt;</span></span></code></pre>
-<h3 id="using-tailwind">Using Tailwind?</h3>
-<p>If you use Tailwind you might run into issues with merging classes set on the component, and classes passed down with props. I recommend using <a href="https://github.com/dcastil/tailwind-merge">tailwind-merge</a>.</p>
-<p>Using this Tailwind, you wouldn’t need the “red” and “blue” classes, as minor changes would be just as easy to add on <em>index.astro</em>.</p>
-<p><em>Button.astro</em>:</p>
-<pre class="highlight astro-code github-dark" style=" overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color:#6A737D">---</span></span>
-<span class="line"><span style="color:#F97583">import</span><span style="color:#F97583"> type</span><span style="color:#E1E4E8"> { HTMLAttributes } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> "astro/types"</span><span style="color:#E1E4E8">;</span></span>
-<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { twMerge } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> "tailwind-merge"</span><span style="color:#E1E4E8">;</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">interface</span><span style="color:#B392F0"> Props</span><span style="color:#F97583"> extends</span><span style="color:#B392F0"> HTMLAttributes</span><span style="color:#E1E4E8">&lt;</span><span style="color:#9ECBFF">"a"</span><span style="color:#E1E4E8">&gt; {</span></span>
-<span class="line"><span style="color:#FFAB70">  variant</span><span style="color:#F97583">:</span><span style="color:#9ECBFF"> "primary"</span><span style="color:#F97583"> |</span><span style="color:#9ECBFF"> "secondary"</span><span style="color:#E1E4E8">;</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">const</span><span style="color:#E1E4E8"> { </span><span style="color:#79B8FF">variant</span><span style="color:#E1E4E8">, </span><span style="color:#F97583">...</span><span style="color:#79B8FF">props</span><span style="color:#E1E4E8"> } </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> Astro.props;</span></span>
-<span class="line"><span style="color:#6A737D">---</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#E1E4E8">&lt;</span><span style="color:#85E89D">a</span></span>
-<span class="line"><span style="color:#B392F0">  class</span><span style="color:#E1E4E8">={</span><span style="color:#B392F0">twMerge</span><span style="color:#E1E4E8">(</span></span>
-<span class="line"><span style="color:#9ECBFF">    "p-4 border-2 border-solid border-black"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#E1E4E8">    variant </span><span style="color:#F97583">===</span><span style="color:#9ECBFF"> "primary"</span><span style="color:#F97583"> &amp;&amp;</span><span style="color:#9ECBFF"> "bg-black text-white rounded-full"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#E1E4E8">    variant </span><span style="color:#F97583">===</span><span style="color:#9ECBFF"> "secondary"</span><span style="color:#F97583"> &amp;&amp;</span><span style="color:#9ECBFF"> "text-black p-8"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#E1E4E8">    Astro.props.class,</span></span>
-<span class="line"><span style="color:#E1E4E8">  )}</span></span>
-<span class="line"><span style="color:#E1E4E8">  {</span><span style="color:#F97583">...</span><span style="color:#E1E4E8">props}</span></span>
-<span class="line"><span style="color:#E1E4E8">&gt;</span></span>
-<span class="line"><span style="color:#E1E4E8">  &lt;</span><span style="color:#85E89D">slot</span><span style="color:#E1E4E8"> /&gt;</span></span>
-<span class="line"><span style="color:#E1E4E8">&lt;/</span><span style="color:#85E89D">a</span><span style="color:#E1E4E8">&gt;</span></span></code></pre>
-<p><em>index.astro</em>:</p>
-<pre class="highlight astro-code github-dark" style=" overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color:#6A737D">---</span></span>
-<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> Button </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> "../components/Button.astro"</span><span style="color:#E1E4E8">;</span></span>
-<span class="line"><span style="color:#6A737D">---</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#E1E4E8">&lt;</span><span style="color:#85E89D">html</span><span style="color:#E1E4E8">&gt;</span></span>
-<span class="line"><span style="color:#E1E4E8">  &lt;</span><span style="color:#85E89D">h1</span><span style="color:#E1E4E8">&gt;Welcome to my website!&lt;/</span><span style="color:#85E89D">h1</span><span style="color:#E1E4E8">&gt;</span></span>
-<span class="line"><span style="color:#E1E4E8">  &lt;</span><span style="color:#79B8FF">Button</span><span style="color:#B392F0"> href</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"/"</span><span style="color:#B392F0"> variant</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"primary"</span><span style="color:#E1E4E8">&gt;Home&lt;/</span><span style="color:#79B8FF">Button</span><span style="color:#E1E4E8">&gt;</span></span>
-<span class="line"><span style="color:#E1E4E8">  &lt;</span><span style="color:#79B8FF">Button</span><span style="color:#B392F0"> href</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"/about"</span><span style="color:#B392F0"> variant</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"secondary"</span><span style="color:#E1E4E8">&gt;About Me&lt;/</span><span style="color:#79B8FF">Button</span><span style="color:#E1E4E8">&gt;</span></span>
-<span class="line"><span style="color:#E1E4E8">  &lt;</span><span style="color:#79B8FF">Button</span><span style="color:#B392F0"> href</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"/services"</span><span style="color:#B392F0"> variant</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"secondary"</span><span style="color:#B392F0"> class</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"text-blue-500"</span><span style="color:#E1E4E8">&gt;</span></span>
-<span class="line"><span style="color:#E1E4E8">    Services</span></span>
-<span class="line"><span style="color:#E1E4E8">  &lt;/</span><span style="color:#79B8FF">Button</span><span style="color:#E1E4E8">&gt;</span></span>
-<span class="line"><span style="color:#E1E4E8">&lt;/</span><span style="color:#85E89D">html</span><span style="color:#E1E4E8">&gt;</span></span></code></pre>
-<h2 id="wrapping-up">Wrapping Up</h2>
-<p>There are many ways to make good components in Astro, and it’s certainly a great way to make a project scale better and more readable when you need to maintain it in 6 months. It’s fine to have one-off components, but having good reusable components to begin with, really makes it a lot easier to work with regardless of scale.</p> 
+
+CSS Grid is a powerful layout system available in CSS, designed to provide a more efficient way to create complex web layouts. Unlike Flexbox, which is one-dimensional (handles either rows or columns), CSS Grid is two-dimensional, allowing you to work with both rows and columns simultaneously. In this guide, we'll explore the basics of CSS Grid, its key properties, and provide a handy cheat sheet for quick reference.
+
+## What is CSS Grid?
+
+CSS Grid Layout, or simply Grid, is a layout system that provides a way to control the design of web pages using a grid-based approach. It allows for more complex layouts compared to other layout methods, offering flexibility and control over both rows and columns.
+
+## Basic Concepts
+
+Before diving into properties and examples, let's cover some basic concepts:
+
+- **Grid Container**: The parent element that holds the grid items. It is defined by setting the `display` property to `grid` or `inline-grid`.
+- **Grid Items**: The child elements within the grid container.
+
+## Grid Container Properties
+
+### 1. `display: grid`
+
+To enable CSS Grid, you need to set the `display` property of the container to `grid`:
+
+```css
+.container {
+    display: grid;
+}
+
+### 2. `grid-template-columns` and `grid-template-rows`
+
+These properties define the number of columns and rows in the grid, and their sizes:
+
+```css
+.container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
+    grid-template-rows: auto 200px 100px; /* 3 rows with varying heights */
+}
+```
+
+### 3. `gap`
+
+The `gap` property sets the spacing between rows and columns. You can also use `column-gap` and `row-gap` for more specific control:
+
+```css
+.container {
+    gap: 10px; /* 10px gap between rows and columns */
+}
+```
+
+### 4. `grid-template-areas`
+
+The `grid-template-areas` property defines named grid areas within the container:
+
+```css
+.container {
+    display: grid;
+    grid-template-areas:
+        "header header header"
+        "sidebar main main"
+        "footer footer footer";
+}
+
+.header {
+    grid-area: header;
+}
+
+.sidebar {
+    grid-area: sidebar;
+}
+
+.main {
+    grid-area: main;
+}
+
+.footer {
+    grid-area: footer;
+}
+```
+
+### 5. `justify-items` and `align-items`
+
+These properties align grid items within their grid areas:
+
+```css
+.container {
+    justify-items: center; /* Align items horizontally to the center */
+    align-items: center; /* Align items vertically to the center */
+}
+```
+
+### 6. `justify-content` and `align-content`
+
+These properties align the entire grid within the container:
+
+```css
+.container {
+    justify-content: center; /* Center the grid horizontally within the container */
+    align-content: center; /* Center the grid vertically within the container */
+}
+```
+
+## Grid Item Properties
+
+### 1. `grid-column` and `grid-row`
+
+These properties define the start and end positions of grid items:
+
+```css
+.item {
+    grid-column: 1 / 3; /* Start at column 1 and end at column 3 */
+    grid-row: 2 / 4; /* Start at row 2 and end at row 4 */
+}
+```
+
+### 2. `grid-area`
+
+This property assigns a grid item to a named grid area:
+
+```css
+.item {
+    grid-area: header; /* Place the item in the "header" grid area */
+}
+```
+
+### 3. `justify-self` and `align-self`
+
+These properties align individual grid items within their grid areas:
+
+```css
+.item {
+    justify-self: end; /* Align the item to the end horizontally */
+    align-self: start; /* Align the item to the start vertically */
+}
+```
+
+## Cheat Sheet
+
+### Grid Container Properties
+
+- `display: grid | inline-grid`
+- `grid-template-columns: repeat(auto-fill, minmax(100px, 1fr))`
+- `grid-template-rows: 100px auto 100px`
+- `gap: 10px`
+- `grid-template-areas: "header header header" "sidebar main main" "footer footer footer"`
+- `justify-items: start | end | center | stretch`
+- `align-items: start | end | center | stretch`
+- `justify-content: start | end | center | stretch | space-between | space-around`
+- `align-content: start | end | center | stretch | space-between | space-around`
+
+### Grid Item Properties
+
+- `grid-column: 1 / span 2`
+- `grid-row: 2 / span 3`
+- `grid-area: header`
+- `justify-self: start | end | center | stretch`
+- `align-self: start | end | center | stretch`
+
+## Practical Example
+
+### Example: Basic Grid Layout
+
+```html
+<div class="container">
+    <div class="item header">Header</div>
+    <div class="item sidebar">Sidebar</div>
+    <div class="item main">Main Content</div>
+    <div class="item footer">Footer</div>
+</div>
+```
+
+```css
+.container {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas:
+        "header header"
+        "sidebar main"
+        "footer footer";
+    gap: 10px;
+}
+
+.header {
+    grid-area: header;
+}
+
+.sidebar {
+    grid-area: sidebar;
+}
+
+.main {
+    grid-area: main;
+}
+
+.footer {
+    grid-area: footer;
+}
+
+.item {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border: 1px solid #ccc;
+}
+```
+
+## Conclusion
+
+CSS Grid is a versatile and powerful tool for creating complex layouts with ease. By mastering its properties and understanding how to structure your grid container and items, you can design flexible and responsive web pages. Use the cheat sheet provided as a quick reference to streamline your development process. Happy coding!
+
+```
+
+This post covers the essentials of CSS Grid, providing a solid foundation and a cheat sheet to help readers quickly reference key properties while working on their web design projects.

@@ -53,7 +53,6 @@ a {
   border: none;
   border-radius: 0;
   background-color: #fff;
-
   &::-webkit-search-decoration,
   &::-webkit-search-cancel-button,
   &::-webkit-search-results-button,
@@ -82,7 +81,6 @@ a {
     max-width: 1200px;
   }
 }
-
 
 .centered {
   text-align: center;
@@ -130,24 +128,9 @@ h1, h2, h3, h4, h5, h6 {
   margin: 0;
 }
 
-h1 {
-  font-size: 60px;
-}
-
-h2 {
-  font-size: 42px;
-}
-
-.h2 {
-  font-size: 42px;
-  line-height: 1.4em;
-  font-weight: 700;
-  margin-bottom: 2em;
-  text-align: center;
-}
-
 p {
   margin: 0;
+  font-size: 16px;
 }
 
 .section-bg {
@@ -158,22 +141,4 @@ p {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  //background-color: #060816;
-}
-
-
-
-.svg {
-  width: 20px;
-  height: 20px;
-  color: var(--light-color);
-
-  svg, use {
-    width: inherit;
-    height: inherit;
-  }
-}
-
-p {
-  font-size: 16px;
 }
