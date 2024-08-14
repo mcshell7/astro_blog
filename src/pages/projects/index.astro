@@ -1,14 +1,16 @@
 ---
+import {getProjects} from "../../../sanity/api";
 import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import {SITE_TITLE, SITE_DESCRIPTION} from '../../consts';
 import {getCollection} from 'astro:content';
 import FormattedDate from '../../components/FormattedDate.astro';
+import Image from "../../components/Image.astro";
 
-const posts = (await getCollection('projects')).sort(
-    (a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf()
-);
+const posts = await getProjects();
+
+
 ---
 
 <!doctype html>
@@ -28,13 +30,20 @@ const posts = (await getCollection('projects')).sort(
                     posts.map((post) => (
                             <li class="project__item">
                                 <a href={`/projects/${post.slug}/`} class="project__item-link">
-                                    <img width={720} height={360} src={post.data.heroImage} alt=""
-                                         class="project__item-img"/>
+                                    <Image imageClass="project__item-img" src={post.image} alt={post.title} />
                                     <div class="project__item-content">
-                                        <h4 class="project__item-title title-4">{post.data.title}</h4>
-                                        <p class="project__item-desc">
-                                            {post.data.description}
+
+                                        <h4 class="project__item-title title-4">{post.title}</h4>
+                                        <p class="project__item-desc description">
+                                            {post.description}
                                         </p>
+                                        <ul class="tags">
+                                        {
+                                            post.tags.map((tag) => (
+                                                    <li class:list=`tag ${tag}`>{tag}</li>
+                                            ))
+                                        }
+                                        </ul>
 
                                     </div>
                                 </a>

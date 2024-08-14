@@ -1,0 +1,7 @@
+---
+const {src, imageClass, alt} = Astro.props;
+let htmlString = '';
+---
+
+{(!src) && <div class="no-image">{alt}</div>}
+{(src) && <img src={src} alt={alt} class={imageClass}/>}

@@ -1,20 +1,66 @@
 ---
-import { type CollectionEntry, getCollection } from 'astro:content';
-import BlogPost from '../../layouts/BlogPost.astro';
+import { getPosts } from "../../../sanity/api";
+import Header from "../../components/Header.astro";
+import BaseHead from "../../components/BaseHead.astro";
+import Footer from "../../components/Footer.astro";
+import { Markdown } from '@astropub/md'
+import FormattedDate from "../../components/FormattedDate.astro";
+import Title from "../../components/Title.astro";
+const { slug } = Astro.params;
 
-export async function getStaticPaths() {
-	const posts = await getCollection('blog');
-	return posts.map((post) => ({
-		params: { slug: post.slug },
-		props: post,
-	}));
-}
-type Props = CollectionEntry<'blog'>;
+const posts = await getPosts();
+const page = posts.find((post) => post.slug === slug);
+if (!page) return Astro.redirect("/404");
 
-const post = Astro.props;
-const { Content } = await post.render();
+const { description,title, publishedAt, blockContent2, image } = page;
+
+
 ---
+<html lang="en">
+<head>
+	<BaseHead title={title} description={description}/>
 
-<BlogPost {...post.data}>
-	<Content />
-</BlogPost>
+</head>
+
+<body>
+<Header/>
+<main class="main">
+<article class="post__content">
+	<div class="container">
+		<div class="hero-image">
+			{image && <img src={image} alt=""/>}
+		</div>
+		<div class="content">
+			<div class="title">
+				<div class="date">
+					<FormattedDate date={publishedAt}/>
+				</div>
+				<Title title={title}/>
+			</div>
+			<Markdown of={blockContent2} />
+		</div>
+	</div>
+</article>
+</main>
+<Footer/>
+</body>
+</html>
+
+<!-- -&#45;&#45;-->
+<!--// import { type CollectionEntry, getCollection } from 'astro:content';-->
+<!--import BlogPost from '../../layouts/BlogPost.astro';-->
+
+
+<!--export async function getStaticPaths() {-->
+<!--	const posts = await getCollection('blog');-->
+<!--	return posts.map((post) => ({-->
+<!--		params: { slug: post.slug },-->
+<!--		props: post,-->
+<!--	}));-->
+<!--}-->
+<!--type Props = CollectionEntry<'blog'>;-->
+
+
+<!-- -&#45;&#45;-->
+
+

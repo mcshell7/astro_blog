@@ -42,3 +42,53 @@ h4>a{
     height: inherit;
   }
 }
+
+.tags{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: auto;
+}
+.tag{
+  border-radius: var(--border-radius);
+  line-height: 1rem;
+  padding: 0.5rem 0.5rem 0.5rem 2.25rem;
+  border: 1px solid var(--primary);
+  font-size: .75rem;
+  position: relative;
+  &:before{
+    content: '';
+    width: 1.5rem;
+    height: 1.5rem;
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+    left: 0.35rem;
+    top: 0.25rem;
+  }
+  &.JS{
+    &:before{
+      background-image: url("../../../public/svg/js.svg");
+    }
+  }
+  &.React{
+    &:before{
+      background-image: url("../../../public/svg/reactjs.svg");
+    }
+  }
+  &.Jekyll{
+    &:before{
+      background-image: url("../../../public/svg/jekyll.svg");
+    }
+  }
+  &.SCSS{
+    &:before{
+      background-image: url("../../../public/svg/sass.svg");
+    }
+  }
+  &.HTML{
+    &:before{
+      background-image: url("../../../public/svg/html5.svg");
+    }
+  }
+}

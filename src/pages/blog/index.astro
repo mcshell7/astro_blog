@@ -3,13 +3,15 @@ import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import {SITE_TITLE, SITE_DESCRIPTION} from '../../consts';
-import {getCollection} from 'astro:content';
 import FormattedDate from '../../components/FormattedDate.astro';
+import { getPosts } from "../../../sanity/api";
+import Title from "../../components/Title.astro";
+import Image from "../../components/Image.astro";
 
-const posts = (await getCollection('blog')).sort(
-    (a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf()
-);
+const posts = await getPosts();
 ---
+
+
 
 <!doctype html>
 <html lang="en">
@@ -22,19 +24,21 @@ const posts = (await getCollection('blog')).sort(
     <section class="blog">
 
         <div class="container">
-            <h1>Blog</h1>
+            <Title title="Blog"/>
+
             <ul class="blog__items">
                 {
                     posts.map((post) => (
                             <li class="blog__item">
                                 <a href={`/blog/${post.slug}/`} class="blog__item-link">
-                                    <img width={720} height={360} src={post.data.heroImage} alt=""
-                                         class="blog__item-img"/>
+                                    <!--<img width={720} height={360} src={post.image} alt=""-->
+                                    <!--     class="blog__item-img"/>-->
+                                    <Image imageClass="blog__item-img" src={post.image} alt={post.title} />
                                     <div class="blog__item-content">
                                         <p class="blog__item-date date">
-                                            <FormattedDate date={post.data.pubDate}/>
+                                            {post.publishedAt}
                                         </p>
-                                        <h4 class="blog__item-title title-4">{post.data.title}</h4>
+                                        <h4 class="blog__item-title title-4">{post.title}</h4>
 
                                     </div>
                                 </a>

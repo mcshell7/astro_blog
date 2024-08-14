@@ -39,11 +39,16 @@
       border-radius: var(--border-radius);
     }
   }
-  &__item-img{
+  &__item-img, .no-image{
     width: 100%;
     height: 300px;
     object-fit: cover;
     border-radius: var(--border-radius);
+  }
+  .no-image{
+    background-color: var(--primary);
+    @include flex-center();
+    font-size: 1.5em;
 
   }
 }
