@@ -1,6 +1,7 @@
-import { client } from "./client";
+import {client} from "./client";
 
 export async function getPosts() {
+
     const posts = await client.fetch(
         `*[_type == "post"]{
       title,
@@ -9,10 +10,15 @@ export async function getPosts() {
       blockContent2,
       "image": mainImage.asset -> url,
       description,
+      "categories": categories[]->{
+        title,
+        slug
+      },
     }`,
     );
     return posts;
 }
+
 export async function getProjects() {
     const projects = await client.fetch(
         `*[_type == "projects"]{
@@ -26,4 +32,16 @@ export async function getProjects() {
     }`,
     );
     return projects;
+}
+
+export async function getCategories() {
+    const categories = await client.fetch(
+        `*[_type == "categories"]{
+      title,
+      publishedAt,
+      "slug": slug.current,
+      "image": mainImage.asset -> url,
+    }`,
+    );
+    return categories;
 }

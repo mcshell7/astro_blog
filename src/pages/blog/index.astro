@@ -31,8 +31,6 @@ const posts = await getPosts();
                     posts.map((post) => (
                             <li class="blog__item">
                                 <a href={`/blog/${post.slug}/`} class="blog__item-link">
-                                    <!--<img width={720} height={360} src={post.image} alt=""-->
-                                    <!--     class="blog__item-img"/>-->
                                     <Image imageClass="blog__item-img" src={post.image} alt={post.title} />
                                     <div class="blog__item-content">
                                         <p class="blog__item-date date">
@@ -45,6 +43,7 @@ const posts = await getPosts();
                             </li>
                     ))
                 }
+
             </ul>
         </div>
 

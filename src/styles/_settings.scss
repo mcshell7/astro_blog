@@ -53,6 +53,7 @@ a {
   border: none;
   border-radius: 0;
   background-color: #fff;
+
   &::-webkit-search-decoration,
   &::-webkit-search-cancel-button,
   &::-webkit-search-results-button,
@@ -77,7 +78,8 @@ a {
   padding: 0 var(--container-offset);
   max-width: var(--container-width);
   width: 100%;
-  &-md{
+
+  &-md {
     max-width: 1200px;
   }
 }
@@ -121,6 +123,8 @@ body {
   font-family: var(--font-family, sans-serif);
   background-color: var(--body-bg);
   color: var(--light-color);
+  display: flex;
+  flex-direction: column;
 }
 
 h1, h2, h3, h4, h5, h6 {

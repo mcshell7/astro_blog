@@ -1,0 +1,33 @@
+.categories{
+  &__list{
+    list-style: none;
+  }
+  &__item{
+    list-style: none;
+    padding: 0.5rem 1rem 0.5rem 2.5rem;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--primary);
+    display: inline-block;
+    position: relative;
+    &:before {
+      content: '';
+      position: absolute;
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 25px;
+      width: 40px;
+      left: 0;
+    }
+    &.css{
+      &:before {
+        background-image: url("../../../public/svg/css3.svg");
+      }
+    }
+    &.html{
+      &:before {
+        background-image: url("../../../public/svg/html5.svg");
+      }
+    }
+  }
+}
