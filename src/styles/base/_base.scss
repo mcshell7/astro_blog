@@ -69,27 +69,27 @@ h4>a{
   }
   &.JS{
     &:before{
-      background-image: url("../../../public/svg/js.svg");
+      background-image: url("/svg/js.svg");
     }
   }
   &.React{
     &:before{
-      background-image: url("../../../public/svg/reactjs.svg");
+      background-image: url("/svg/reactjs.svg");
     }
   }
   &.Jekyll{
     &:before{
-      background-image: url("../../../public/svg/jekyll.svg");
+      background-image: url("/svg/jekyll.svg");
     }
   }
   &.SCSS{
     &:before{
-      background-image: url("../../../public/svg/sass.svg");
+      background-image: url("/svg/sass.svg");
     }
   }
   &.HTML{
     &:before{
-      background-image: url("../../../public/svg/html5.svg");
+      background-image: url("/svg/html5.svg");
     }
   }
 }

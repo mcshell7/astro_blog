@@ -21,12 +21,12 @@
     }
     &.css{
       &:before {
-        background-image: url("../../../public/svg/css3.svg");
+        background-image: url("/svg/css3.svg");
       }
     }
     &.html{
       &:before {
-        background-image: url("../../../public/svg/html5.svg");
+        background-image: url("/svg/html5.svg");
       }
     }
   }
