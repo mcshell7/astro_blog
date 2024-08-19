@@ -45,3 +45,13 @@ export async function getCategories() {
     );
     return categories;
 }
+
+export async function getMenu() {
+    const menu = await client.fetch(
+        `*[_type == "menu"]{
+      title,
+      "slug": slug.current,
+    }`,
+    );
+    return menu;
+}

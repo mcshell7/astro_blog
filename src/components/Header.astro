@@ -1,20 +1,21 @@
 ---
+import React from "react";
 import HeaderLink from './HeaderLink.astro';
 import { SITE_TITLE } from '../consts';
 import Button from "./Button/Button.astro";
+
+const {slug} = Astro.params;
+
+import Navigation from "./Nav/Navigation";
+// const page = menu.find((item) => item.slug === slug);
+
 ---
 
 <header id="header" class="header">
 	<div class="container">
 		<div class="header__inner">
 			<a class="logo" href="/">Hamadev.net</a>
-			<nav class="menu">
-				<ul id="select_menu"  class="ul menu__list">
-					<li class="menu__item"><HeaderLink href="/about" class="menu__item-link">About Me</HeaderLink></li>
-					<li class="menu__item"><HeaderLink href="/blog" class="menu__item-link">Blog</HeaderLink></li>
-					<li class="menu__item"><HeaderLink href="/projects" class="menu__item-link">Projects</HeaderLink></li>
-				</ul>
-			</nav>
+			<Navigation/>
 			<Button href="/contacts" class="button-sm" variant="primary">Contacts</Button>
 		</div>
 	</div>
