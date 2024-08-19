@@ -1,0 +1,54 @@
+.tag{
+  &__block{
+    margin-top: 0.5rem;
+  }
+  &__list{
+    list-style: none;
+    display: flex;
+    gap: 0.5rem;
+  }
+  &__item{
+    list-style: none;
+    a{
+      font-size: 0.9rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: var(--border-radius);
+      border: 1px solid transparent;
+      cursor: pointer;
+      color: currentColor;
+      &:before{
+        content: '#';
+        color: inherit;
+      }
+      @include hover{
+        text-decoration: none;
+      }
+      &.css{
+        @include hover{
+          border-color: var(--theme-css);
+        }
+        &:before{
+          color: var(--theme-css);
+        }
+      }
+      &.js{
+        @include hover{
+          border-color: var(--theme-js);
+        }
+        &:before{
+          color: var(--theme-js);
+        }
+      }
+      &.html{
+        @include hover{
+          border-color: var(--theme-html);
+        }
+        &:before{
+          color: var(--theme-html);
+        }
+      }
+    }
+
+
+  }
+}

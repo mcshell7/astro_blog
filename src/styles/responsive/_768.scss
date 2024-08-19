@@ -1,9 +1,6 @@
 @media (pointer: coarse) {
-
   .portfolio{
-
     &__item{
-
       .portfolio__item-content{
         *{
           opacity: 1;
@@ -93,6 +90,9 @@
   }
   .section-bg,.contacts{
     padding: 50px 0;
+  }
+  .main{
+    margin-top: 0;
   }
 }
 @media screen and (max-width: 700px) {

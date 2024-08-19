@@ -4,13 +4,14 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import {SITE_TITLE, SITE_DESCRIPTION} from '../../consts';
 import FormattedDate from '../../components/FormattedDate.astro';
-import { getPosts } from "../../../sanity/api";
+import {getPosts} from "../../../sanity/api";
 import Title from "../../components/Title.astro";
 import Image from "../../components/Image.astro";
 
 const posts = await getPosts();
----
 
+
+---
 
 
 <!doctype html>
@@ -21,25 +22,42 @@ const posts = await getPosts();
 <body>
 <Header/>
 <main class="main">
-    <section class="blog">
 
+    <section class="blog">
         <div class="container">
             <Title title="Blog"/>
 
             <ul class="blog__items">
+
                 {
+
                     posts.map((post) => (
+
                             <li class="blog__item">
                                 <a href={`/blog/${post.slug}/`} class="blog__item-link">
-                                    <Image imageClass="blog__item-img" src={post.image} alt={post.title} />
-                                    <div class="blog__item-content">
-                                        <p class="blog__item-date date">
-                                            {post.publishedAt}
-                                        </p>
-                                        <h4 class="blog__item-title title-4">{post.title}</h4>
-
-                                    </div>
+                                    <Image imageClass="blog__item-img" src={post.image} alt={post.title}/>
                                 </a>
+                                <div class="blog__item-content">
+                                    <p class="blog__item-date date">
+                                        <FormattedDate date={post.publishedAt}/>
+                                    </p>
+                                    {post.categories && post.categories.length > 0 ? (
+                                            <ul class="tag__list">
+                                                {
+                                                    post.categories.map((category, index) => (
+                                                            <li class=`tag__item `>
+                                                                <a href=`/blog/` class=`${category.slug.current}`>
+                                                                    {category.title}
+                                                                </a>
+                                                            </li>
+                                                    ))}
+                                            </ul>
+                                    ) : ('')}
+                                    <a href={`/blog/${post.slug}/`} class="blog__item-link">
+                                        <h4 class="blog__item-title title-4">{post.title}</h4>
+                                    </a>
+
+                                </div>
                             </li>
                     ))
                 }

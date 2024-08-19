@@ -3,7 +3,7 @@ import {client} from "./client";
 export async function getPosts() {
 
     const posts = await client.fetch(
-        `*[_type == "post"]{
+        `*[_type == "post"] | order(publishedAt desc){
       title,
       publishedAt,
       "slug": slug.current,

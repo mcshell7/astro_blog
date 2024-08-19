@@ -3,7 +3,7 @@ import {getPosts} from "../../../sanity/api";
 import Header from "../../components/Header.astro";
 import BaseHead from "../../components/BaseHead.astro";
 import Footer from "../../components/Footer.astro";
-import {Markdown} from '@astropub/md'
+import {Markdown} from '@astropub/md';
 import FormattedDate from "../../components/FormattedDate.astro";
 import Title from "../../components/Title.astro";
 const {slug} = Astro.params;
@@ -13,6 +13,16 @@ const page = posts.find((post) => post.slug === slug);
 if (!page) return Astro.redirect("/404");
 
 const {description, title, publishedAt, blockContent2, image, categories} = page;
+
+
+
+
+
+console.log(blockContent2);
+function toc(text){
+
+}
+
 ---
 <html lang="en">
 <head>
@@ -25,33 +35,37 @@ const {description, title, publishedAt, blockContent2, image, categories} = page
 <main class="main">
     <article class="post__content">
         <div class="container">
-            <div class="hero-image">
-                {image && <img src={image} alt=""/>}
-            </div>
-            {categories && categories.length > 0 ? (
-                    <ul class="categories__list">
-                        {
-                            categories.map((category, index) => (
-                                    <li class=`categories__item ${category.slug.current}`>
-                                        <!--<a href='/blog'>-->
-                                        {category.title}
-                                        <!--                                        </a>-->
-                                    </li>
-                            ))}
-                    </ul>
-            ) : ('')}
-            <div class="content">
-                <div class="title">
-                    <div class="date">
-                        <FormattedDate date={publishedAt}/>
-                        <div>
+            <div class="content__outer">
 
-
-                        </div>
-                    </div>
-                    <Title title={title}/>
+                <div class="hero-image">
+                    {image && <img src={image} alt=""/>}
                 </div>
-                <Markdown of={blockContent2}/>
+                <div class="content">
+                    <div class="toc">
+                        toc
+                    </div>
+                    <div class="title">
+                        <div class="date">
+                            <FormattedDate date={publishedAt}/>
+                            <div class="tag__block">
+                                {categories && categories.length > 0 ? (
+                                        <ul class="tag__list">
+                                            {
+                                                categories.map((category, index) => (
+                                                        <li class=`tag__item `>
+                                                            <a href=`/blog/` class=`${category.slug.current}`>
+                                                                {category.title}
+                                                            </a>
+                                                        </li>
+                                                ))}
+                                        </ul>
+                                ) : ('')}
+                            </div>
+                        </div>
+                        <Title title={title}/>
+                    </div>
+                    <Markdown of={blockContent2}/>
+                </div>
             </div>
         </div>
     </article>
@@ -59,7 +73,9 @@ const {description, title, publishedAt, blockContent2, image, categories} = page
 <Footer/>
 </body>
 </html>
-
+<script>
+    console.log('Hi! I’m the client. This is logged in browser dev console.');
+</script>
 <!-- -&#45;&#45;-->
 <!--// import { type CollectionEntry, getCollection } from 'astro:content';-->
 <!--import BlogPost from '../../layouts/BlogPost.astro';-->
