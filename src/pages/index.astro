@@ -6,6 +6,13 @@ import {SITE_TITLE, SITE_DESCRIPTION} from '../consts';
 import Work from "../components/Work/Work.astro";
 import Hero from "../components/Hero/Hero.astro";
 import Button from "../components/Button/Button.astro";
+import {getTech} from "../../sanity/api";
+
+
+import Tech from '../components/Tech/Tech.jsx';
+const tech = await getTech();
+
+
 ---
 
 
@@ -29,6 +36,8 @@ import Button from "../components/Button/Button.astro";
             <!--<img src="public/bg.png">-->
         </div>
     </section>
+    <Tech tech={tech} title="Skills" />
+    <Work/>
     <section id="about" class="about section-bg">
         <div class="container">
 
@@ -54,56 +63,7 @@ import Button from "../components/Button/Button.astro";
             </div>
         </div>
     </section>
-    <Work/>
-    <section class="tech">
-        <div class="container">
-            <h2>Skills</h2>
-            <div class="tech__list">
-                <div class="tech__item">
-                    <img src="/svg/css3.svg">
-                    <p>CSS</p>
-                </div>
-                <div class="tech__item">
-                    <img src="/svg/html5.svg">
-                    <p>HTML</p>
-                </div>
-                <div class="tech__item">
-                    <img src="/svg/js.svg">
-                    <p>JS</p>
-                </div>
 
-                <div class="tech__item">
-                    <img src="/svg/sass.svg">
-                    <p>SCSS</p>
-                </div>
-                <div class="tech__item">
-                    <img src="/svg/reactjs.svg">
-                    <p>React Js</p>
-                </div>
-                <div class="tech__item">
-                    <img src="svg/nextjs2.svg">
-                    <p>Next Js</p>
-                </div>
-                <div class="tech__item">
-                    <img src="svg/astro.svg">
-                    <p>Astro Js</p>
-                </div>
-                <div class="tech__item">
-                    <img src="svg/nodejs.svg">
-                    <p>Node Js</p>
-                </div>
-                <div class="tech__item">
-                    <img src="svg/jekyll.svg">
-                    <p>Jekyll</p>
-                </div>
-                <div class="tech__item">
-                    <img src="/svg/wordpress.svg">
-                    <p>Wordpress</p>
-                </div>
-            </div>
-
-        </div>
-    </section>
 </main>
 <Footer/>
 </body>

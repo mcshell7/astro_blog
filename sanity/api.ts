@@ -55,3 +55,12 @@ export async function getMenu() {
     );
     return menu;
 }
+export async function getTech() {
+    const tech = await client.fetch(
+        `*[_type == "tech"] | order(publishedAt desc){
+      title,
+      "image": mainImage.asset -> url,
+    }`,
+    );
+    return tech;
+}
